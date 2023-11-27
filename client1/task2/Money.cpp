@@ -81,9 +81,11 @@ ostream &operator<<(ostream &stream, const Money &money) {
     return stream;
 }
 
-istream& operator >> (istream& stream, Money& money)
-{
-    stream >> *(money.ruble);
-    stream >> *(money.kopeck);
-    return stream;
+std::istream& operator>>(std::istream& input, Money& money) {
+    input >> *money.ruble;
+    int num;
+    input >> num;
+    *money.ruble += num / 100;
+    *money.kopeck = num % 100;
+    return input;
 }
