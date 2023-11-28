@@ -38,12 +38,15 @@ Money Money::operator-(const Money &other) const {
 }
 
 Money Money::operator*(int count) const {
-    return Money(*ruble * count, *kopeck * count);
+    Money m(*this);
+    for (int i = 0; i < count - 1; ++i)
+        m = m + *this;
+    return m;
 }
 
 Money Money::operator/(int count) const {
     double num = (double) *ruble / count;
-    return Money(*ruble / count, *kopeck / count + round((num - floor(num)) * 100));
+    return Money(*ruble / count, (int) *kopeck / count + round((num - floor(num)) * 100));
 }
 
 Money& Money::operator=(const Money &other) {
@@ -77,7 +80,7 @@ bool Money::operator<=(const Money &other) const {
 }
 
 ostream &operator<<(ostream &stream, const Money &money) {
-    stream << *(money.ruble) << " rub. " << (int) *(money.kopeck) << " cop. ";
+    stream << *(money.ruble) << " rub. " << (int) *(money.kopeck) << " cop.";
     return stream;
 }
 
