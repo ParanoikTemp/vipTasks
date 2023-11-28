@@ -14,6 +14,7 @@ struct Date {
     /// <returns> Число от 0 до 100 с количеством просроченных дней. В случае если переданная дата меньше чем срок
     /// годности товара, то вернется 0, а если просрочено более чем на 100 дней, то вернется все равно 100.</returns>
     int distanceToDays(const Date &other) const;
+    friend ostream &operator<<(ostream& stream, const Date &other);
 };
 
 class Goods {
@@ -32,7 +33,7 @@ public:
     /// <param name="_cost"> Стоимость товара (в рублях с копейками) </param>
     /// <param name="_count"> Количество товара (шт.) </param>
     /// <param name="_number"> Номер накладной </param>
-    Goods(string &_name, Date &_date, Money &_price, int _count, int _number);
+    Goods(string _name, Date _date, Money _price, int _count, int _number);
     /// <summary> Конструктор копирования </summary>
     /// <param name="other"> Другой объект класса Goods </param>
     Goods(const Goods &other) = default;
@@ -60,5 +61,19 @@ public:
     void reduceCount(int count);
     /// <summary> Уменьшает цену на 1% за каждый день просрочки </summary>
     /// <param name="today"> Сегодняшняя дата </param>
-    void makeDiscount(Date &today);
+    void makeDiscount(Date today);
+    /// <summary> Геттер названия товара </summary>
+    /// <returns> Возвращает строку с названием товара </returns>
+    string getName();
+    /// <summary> Геттер количества товара </summary>
+    /// <returns> Возвращает количество товара </returns>
+    int getCount();
+    /// <summary> Геттер номер накладной товара </summary>
+    /// <returns> Возвращает число с номером наклодной товара </returns>
+    int getNumber();
+    /// <summary> Геттер цены товара </summary>
+    /// <returns> Возвращает цену товара </returns>
+    Money getPrice();
+
+    friend ostream &operator<<(ostream& stream, const Goods &other);
 };
