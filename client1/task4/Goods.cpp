@@ -35,6 +35,11 @@ int Date::distanceToDays(const Date &other) const {
     return days;
 }
 
+ostream &operator<<(ostream &stream, const Date &other) {
+    stream << '[' << other.day << '/' << other.month << '/' << other.year << ']';
+    return stream;
+}
+
 Goods::Goods() {
     name = "Без названия";
     date = Date{1, 1, 2024};
@@ -43,7 +48,7 @@ Goods::Goods() {
     number = 0;
 }
 
-Goods::Goods(string &_name, Date &_date, Money &_price, int _count, int _number) {
+Goods::Goods(string _name, Date _date, Money _price, int _count, int _number) {
     name = _name;
     date = _date;
     price = _price;
@@ -81,7 +86,30 @@ void Goods::reduceCount(int count) {
         this->count = 0;
 }
 
-void Goods::makeDiscount(Date &today) {
+void Goods::makeDiscount(Date today) {
     int days = date.distanceToDays(today);
-    price = price / 100 * (100 - days);
+    price = price * 100;
+    price = price * (100 - days) / 100;
+    price = price / 100;
+}
+
+string Goods::getName() {
+    return name;
+}
+
+int Goods::getCount() {
+    return count;
+}
+
+int Goods::getNumber() {
+    return number;
+}
+
+ostream &operator<<(ostream &stream, const Goods &other) {
+    stream << "Goods(Name: " << other.name << ", Date: " << other.date << ", Price: " << other.price << ", Count: " << other.count << ", Number: " << other.number << ")";
+    return stream;
+}
+
+Money Goods::getPrice() {
+    return price;
 }
