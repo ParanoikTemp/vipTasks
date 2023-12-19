@@ -40,6 +40,8 @@ int main() {
     std::cout << "Merged Ordered List: " << mergedOrderedList << std::endl;
 
     std::cin >> mergedOrderedList;
+    mergedOrderedList.erase(++mergedOrderedList.begin());
+    
     std::cout << "New Merged List: " << mergedOrderedList;
     return 0;
 }
