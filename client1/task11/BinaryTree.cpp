@@ -1,28 +1,29 @@
 #include "BinaryTree.h"
 
-TreeNode *BinaryTree::insertRecursive(TreeNode *node, int key)
-{
+TreeNode* BinaryTree::insertRecursive(TreeNode* node, int key) {
     if (!node) {
         return new TreeNode(key);
     }
 
     if (key < node->key) {
         node->left = insertRecursive(node->left, key);
+        node->left->parent = node;  // Set parent pointer
     } else if (key > node->key) {
         node->right = insertRecursive(node->right, key);
+        node->right->parent = node;  // Set parent pointer
     }
 
     return node;
 }
 
-TreeNode *BinaryTree::getMinNode(TreeNode *node) {
+TreeNode* BinaryTree::getMinNode(TreeNode* node) {
     if (node->left != nullptr)
         return getMinNode(node->left);
     else
         return node;
 }
 
-void *BinaryTree::delMinNode(TreeNode *node) {
+void BinaryTree::delMinNode(TreeNode* node) {
     if (node->left->left == nullptr && node->left->right == nullptr) {
         delete node->left;
         node->left = nullptr;
@@ -30,7 +31,7 @@ void *BinaryTree::delMinNode(TreeNode *node) {
         delMinNode(node->left);
 }
 
-void BinaryTree::print(TreeNode *node, int level, int side) {
+void BinaryTree::print(TreeNode* node, int level, int side) {
     if (node->right != nullptr)
         print(node->right, level + 1, 1);
     for (int i = 0; i < level; ++i)
@@ -44,10 +45,9 @@ void BinaryTree::print(TreeNode *node, int level, int side) {
     std::cout << node->key << '\n';
     if (node->left != nullptr)
         print(node->left, level + 1, -1);
-
 }
 
-TreeNode *BinaryTree::find(TreeNode *node, int key) {
+TreeNode* BinaryTree::find(TreeNode* node, int key) {
     if (node == nullptr)
         return nullptr;
     if (key == node->key)
@@ -65,12 +65,14 @@ void BinaryTree::insert(int key) {
     insertRecursive(root, key);
 }
 
-void BinaryTree::removeNode(TreeNode *node) {
+void BinaryTree::removeNode(TreeNode* node) {
     TreeNode* min_node = getMinNode(node->right);
     node->key = min_node->key;
     if (min_node->right != nullptr) {
-        TreeNode *temp = min_node->right;
-        min_node = min_node->right;
+        TreeNode* temp = min_node->right;
+        min_node->right = min_node->right->right;  // Update parent's child pointer
+        if (min_node->right != nullptr)
+            min_node->right->parent = min_node;  // Update child's parent pointer
         delete temp;
     } else
         delMinNode(node->right);
@@ -80,6 +82,6 @@ void BinaryTree::printTree() {
     print(root, 0, 0);
 }
 
-TreeNode *BinaryTree::findElem(int key) {
+TreeNode* BinaryTree::findElem(int key) {
     return find(root, key);
 }
