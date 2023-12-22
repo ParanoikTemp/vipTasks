@@ -5,8 +5,9 @@ struct TreeNode {
     int key;
     TreeNode* left;
     TreeNode* right;
+    TreeNode* parent; 
 
-    TreeNode(int value) : key(value), left(nullptr), right(nullptr) {}
+    TreeNode(int value, TreeNode* parent = nullptr) : key(value), left(nullptr), right(nullptr), parent(parent) {}
 };
 
 class BinaryTree {
@@ -15,13 +16,13 @@ private:
 
     TreeNode* insertRecursive(TreeNode* node, int key);
 
-    TreeNode *getMinNode(TreeNode *node);
+    TreeNode* getMinNode(TreeNode* node);
 
-    void *delMinNode(TreeNode *node);
+    void delMinNode(TreeNode* node);
 
-    void print(TreeNode *node, int level, int side);
+    void print(TreeNode* node, int level, int side);
 
-    TreeNode *find(TreeNode *node, int key);
+    TreeNode* find(TreeNode* node, int key);
 
 public:
     BinaryTree() : root(nullptr) {}
@@ -32,5 +33,5 @@ public:
 
     void printTree();
 
-    TreeNode *findElem(int key);
+    TreeNode* findElem(int key);
 };
