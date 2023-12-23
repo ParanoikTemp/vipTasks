@@ -1,5 +1,4 @@
-#include <iostream>
-#include "List.h"
+#include "MyList.h"
 
 int main() {
     MyList<int> list1;
@@ -41,8 +40,7 @@ int main() {
 
     std::cin >> mergedOrderedList;
     mergedOrderedList.erase(++mergedOrderedList.begin());
-    
+
     std::cout << "New Merged List: " << mergedOrderedList;
     return 0;
 }
-
