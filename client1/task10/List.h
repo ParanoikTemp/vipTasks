@@ -79,8 +79,11 @@ public:
 
     ~MyList();
 
-    template<typename D>
-    friend std::ostream &operator<<(std::ostream &stream, const MyList<D> list) {
+    MyList<T>& operator=(const MyList<T>& other);
+
+    MyList(const MyList<T>& other);
+
+    friend std::ostream &operator<<(std::ostream &stream, const MyList<T>& list) {
         for (auto it = list.begin(); it != list.end(); ++it) {
             stream << *it << ' ';
         }
@@ -88,11 +91,36 @@ public:
     }
 
     template<typename D>
-    friend std::istream &operator>>(std::istream &stream, MyList<D> list);
+    friend std::istream &operator>>(std::istream &stream, MyList<D>& list);
 };
 
+template<typename T>
+MyList<T>::MyList(const MyList<T> &other) : head(nullptr), tail(nullptr) {
+    for (auto it = other.begin(); it != other.end(); ++it) {
+        insert(end(), *it);
+    }
+}
+
+template<typename T>
+MyList<T> &MyList<T>::operator=(const MyList<T> &other)  {
+    if (this != &other) {
+        // Очищаем текущий список
+        while (head) {
+            Node<T>* temp = head;
+            head = head->next;
+            delete temp;
+        }
+
+        // Копируем элементы из другого списка
+        for (auto it = other.begin(); it != other.end(); ++it) {
+            insert(end(), *it);
+        }
+    }
+    return *this;
+}
+
 template<typename D>
-std::istream &operator>>(std::istream &stream, MyList<D> list) {
+std::istream &operator>>(std::istream &stream, MyList<D>& list) {
     D val;
     stream >> val;
     list.insert(list.end(), val);
