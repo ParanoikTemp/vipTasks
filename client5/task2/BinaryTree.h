@@ -24,6 +24,11 @@ private:
     // Простой метод для вывода дерева в прямом порядке
     void printInOrder(TreeNode* current) const;
 
+    TreeNode* findMin(TreeNode* node) const;
+
+    void deleteElement(TreeNode* node, int value);
+
+    void printTree(TreeNode* node, int level);
 public:
     BinaryTree() : root(nullptr) {}
 
@@ -35,4 +40,8 @@ public:
 
     // Метод для вывода дерева в прямом порядке
     void printInOrder() const;
+
+    void deleteElement(int value);
+
+    void printTree();
 };
