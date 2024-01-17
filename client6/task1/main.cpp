@@ -17,7 +17,7 @@ int main() {
     string word[4] = {"Random", "Sort", "Reverse sort"};
     int nms[3] = {500, 1500, 4500};
     int tests = 10;
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 3; ++i) {
         for (int len: nms) {
             long long int sum = 0;
             for (int u = 0; u < tests; ++u) {
