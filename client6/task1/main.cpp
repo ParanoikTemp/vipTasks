@@ -11,12 +11,6 @@ void getRandom(int* arr, int count, int sort) {
         Sort::QuickSort(arr, count);
     else if (sort == 2)
         Sort::QuickSort(arr, count, true);
-    else if (sort == 3) {
-        Sort::QuickSort(arr, count);
-        for (int i = 0; i < count-1; ++i)
-            if (rand() % 2)
-                swap(arr[i], arr[i+1]);
-    }
 }
 
 int main() {
