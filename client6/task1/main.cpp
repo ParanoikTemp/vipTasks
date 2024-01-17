@@ -14,7 +14,7 @@ void getRandom(int* arr, int count, int sort) {
 }
 
 int main() {
-    string word[4] = {"Random", "Sort", "Reverse sort", "sort and shuffle"};
+    string word[4] = {"Random", "Sort", "Reverse sort"};
     int nms[3] = {500, 1500, 4500};
     int tests = 10;
     for (int i = 0; i < 4; ++i) {
