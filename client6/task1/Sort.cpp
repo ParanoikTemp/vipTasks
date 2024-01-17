@@ -1,19 +1,19 @@
 #include "Sort.h"
 
-void Sort::QuickSort(int *nums, int len, bool reverse, int start, int end) {
+void Sort::QuickSort(int *nums, int len, int start, int end) {
     if (end == -1) end = len - 1;
     if (end - start < 1) return;
     int numIndex = start;
     int num = nums[numIndex];
     for (int i = start + 1; i <= end; ++i) {
-        if (nums[i] < num && !reverse || nums[i] > num && reverse) {
+        if (nums[i] < num) {
             if (i != numIndex + 1) swap(nums[numIndex + 1], nums[i]);
             swap(nums[numIndex], nums[numIndex + 1]);
             ++numIndex;
         }
     }
-    QuickSort(nums, 0, reverse, start, numIndex - 1);
-    QuickSort(nums, 0, reverse, numIndex + 1, end);
+    QuickSort(nums, 0, start, numIndex - 1);
+    QuickSort(nums, 0, numIndex + 1, end);
 }
 
 void print(int* arr, int len) {
